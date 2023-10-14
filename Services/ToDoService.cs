@@ -3,25 +3,26 @@ using sdani.Models;
 namespace sdani.Services;
 
 public class ToDoService {    ////////  Test with XUnit!!!!
-    private static readonly List<ToDo> ToDos = new ();
+    private static List<ToDo> ToDos = new ();
     
     public void AddToDo(string title, string discription)
     {
-        throw new NotImplementedException();
+        ToDo todo = new (Guid.NewGuid(), title, discription);
+        ToDos.Add(todo);
     }
     
     public void DeliteToDo(Guid id)
     {
-        throw new NotImplementedException();
+        ToDos = ToDos.Where(todo => todo.id != id).ToList();
     }
     
     public ToDo? GetToDo(Guid id)
     {
-        throw new NotImplementedException();
+        return ToDos.Find(todo => todo.id == id);
     }
     
     public List<ToDo> ToList()
     {
-        throw new NotImplementedException();
+        return ToDos;
     }
 }

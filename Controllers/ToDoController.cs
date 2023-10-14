@@ -7,19 +7,28 @@ namespace sdani.Controllers;
 
 
 [ApiController]
-[Route("ToDos")]
-public class ToDoController {
-    private static readonly List<ToDo> ToDos = new ();
+[Route("ToDo_List")]
+public class ToDoController
+{
+    //private readonly ToDoService _toDoService = new ();
     
-    [HttpPost]
-    public void PostString(ToDo todo)
+    private readonly ToDoService _toDoService;
+
+    public ToDoController(ToDoService toDoService)
     {
-        ToDos.Add(todo);
+        _toDoService = toDoService;
+    }
+
+
+    [HttpPost]
+    public void PostString(string title, string description)
+    {
+       _toDoService.AddToDo(title, description);
     }
     
     [HttpGet("/something")]
-    public Guid GetString()
+    public List<ToDo> GetString()
     {
-        return Guid.NewGuid();
+         return _toDoService.ToList();
     }
 }
